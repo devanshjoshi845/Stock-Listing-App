@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router,Routes,Route, useParams  } from 'react-router-dom';
+
 import './App.css';
+import Back from './components/Back';
+import Last from './components/Last';
+import Mid from './components/Mid';
+import Nav from './components/Nav';
+import View from './components/View';
 
 function App() {
+  let [show, setshow] = useState([]);
+ 
+  //console.log([arr,...show])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Nav/>
+        <Mid/>
+        <Back/>
+        <Routes>
+          <Route path='/' element={<Last  show={show} setshow={setshow} />}/>
+          <Route path='view/:name' element={<View show={show} setshow={setshow} />}/>
+          <Route path='save' element={ <View/>}/>
+          <Route path='/*' element={<h1>eroor page</h1>}/>
+        </Routes>
+      </Router>
     </div>
   );
 }
